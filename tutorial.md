@@ -1,7 +1,3 @@
-Author: Igor.Machin\@Teradata.com
-
-Date:
-
 Document Control
 ================
 
