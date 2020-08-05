@@ -175,7 +175,7 @@ For this tutorial we will use the Modified Monash Model shape file that is open 
 
 [Download from data.gov.au](https://data.gov.au/data/dataset/modified-monash-model-mmm-2019)
 
-![Download MMM](media/download-mmm.png)
+![Download MMM](media/download-mmm-file.png)
 
 From the zip, extract the files somewhere, and then modify the Python script `geo-convert.py` to point to your file.  
 
