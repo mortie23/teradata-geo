@@ -1,0 +1,16 @@
+-- Author:	Christopher Mortimer
+-- Date:	  2020-08-05
+-- Desc:	  Create some test points
+
+DROP TABLE PRD_ADS_HWD_WDAPGRP_DB.GEO_POINTS;
+CREATE TABLE PRD_ADS_HWD_WDAPGRP_DB.GEO_POINTS (
+  ID_COL VARCHAR(100) 
+  , POINT_GEOMETRY ST_GEOMETRY
+)
+PRIMARY INDEX(ID_COL)
+;
+--CALL SYSSPATIAL.AddGeometryColumn('','PRD_ADS_HWD_WDAPGRP_DB','GEO_POINTS','POINT_GEOMETRY',4283,'ST_POINT', 0.0, 1.0, 1000.0, 1001.0,s);
+-- Executed as Single statement.  Failed [3523 : 42000] The user does not have EXECUTE PROCEDURE access to SYSSPATIAL.AddGeometryColumn. 
+
+-- Insert sample   
+INSERT INTO PRD_ADS_HWD_WDAPGRP_DB.GEO_POINTS VALUES ('1','POINT (149.0723375605 -35.4349675974999)');

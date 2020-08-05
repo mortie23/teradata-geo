@@ -2,7 +2,8 @@
 Author: Christopher Mortimer
 Date:   2020-08-05
 Desc:   Load a GeoJSON file to Teradata
-tbuild -f loadJSON.tpt -v <jobvars.txt>
+Note:   If using LDAP auth add VARCHAR LogonMech = 'LDAP', to SQL_INSERTER OPERATOR
+tbuild -f .\loadJSON.tpt -v .\<job-var-file>.jvar
 */
 DEFINE JOB LOADING_JSON_DATA
 (
@@ -40,7 +41,7 @@ DEFINE JOB LOADING_JSON_DATA
     VARCHAR Tdpid = @Tdpid,
     VARCHAR UserName = @UserName,
     VARCHAR UserPassword = @UserPassword,
-    varchar RowErrFileName = 'json_load.err',
+    VARCHAR RowErrFileName = 'json_load.err',
     IndicatorMode = 'N'
   )
   ;

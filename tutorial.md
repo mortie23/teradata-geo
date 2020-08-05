@@ -181,6 +181,18 @@ Run the Python script.
 ./geo-convery.py
 ```
 
+GitHub has a great feature that will automatically show GeoJSON files as polygons on a map.
+This is a sample of the records that was create using the following script for testing purposes.
+
+```sh
+# Write the first 10 lines to a new file
+head mmm-2019-final.json > mmm-2019-sample.json
+# Append the last 10 lines to the file created before
+tail mmm-2019-final.json >> mmm-2019-sample.json
+```
+
+![Sample Polygons](media/polygon.png)
+
 ### Load the GeoJSON
 
 Run the TPT script using command line (in this instance using PowerShell in Windows Terminal).
@@ -240,3 +252,43 @@ FROM (
 ) AS A
 ;
 ```
+
+Points in Polygons
+------------------
+
+Once the polygon data is available in Teradata we can use it to find what polygons a point is in.
+
+### Create a sample point
+
+```sql
+CREATE TABLE PRD_ADS_HWD_WDAPGRP_DB.GEO_POINTS (
+  ID_COL VARCHAR(100) 
+  , POINT_GEOMETRY ST_GEOMETRY
+)
+PRIMARY INDEX(ID_COL)
+;
+
+-- Insert sample   
+INSERT INTO PRD_ADS_HWD_WDAPGRP_DB.GEO_POINTS VALUES ('1','POINT (149.0723375605 -35.4349675974999)');
+```
+
+Now we have the point we can use a spatial join to find what polugon the point is in.
+
+```sql
+SELECT 
+  POINT.ID_COL
+  , POLY.OBJECTID
+FROM 
+  PRD_ADS_HWD_WDAPGRP_DB.GEO_POINTS POINT
+INNER JOIN 
+  PRD_ADS_HWD_WDAPGRP_DB.GEO POLY
+ON 
+  POINT.POINT_GEOMETRY.ST_WITHIN(POLY.GEOMETRY)= 1
+;
+```
+
+Result
+
+ ID_COL |OBJECTID 
+ ------ |-------- 
+ 1      |   57487
